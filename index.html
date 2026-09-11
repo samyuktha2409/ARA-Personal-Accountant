@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#111111">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ARA - Your Personal Accountant</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            margin-top: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+        }
+
+        button {
+            background: #222;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        .suggest-button {
+            background: #5b5bd6;
+            margin-top: 10px;
+        }
+
+        .suggest-button:hover {
+            background: #4747b8;
+        }
+
+        #message,
+        #budgetMessage {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        #categorySuggestion {
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            background: #f1f1f1;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 30px 0;
+        }
+
+        .total-box {
+            background: #f1f1f1;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .expense-item {
+            background: #f5f5f5;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        .expense-amount {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .category-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #f1f1f1;
+            border-radius: 8px;
+        }
+
+        .recommendation {
+            background: #fff7d6;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .budget-card {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .budget-card p {
+            font-size: 16px;
+            margin: 12px 0;
+        }
+
+        .afford-box {
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .afford-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .safe {
+            background: #e8f7e8;
+        }
+
+        .warning {
+            background: #fff4d6;
+        }
+
+        .danger {
+            background: #ffe5e5;
+        }
+
+        .empty {
+            color: #777;
+            text-align: center;
+        }
+
+
+        .dashboard-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px}.dashboard-card{background:#f7f7f7;padding:20px;border-radius:12px;text-align:center;border:1px solid #e5e5e5}.card-icon{font-size:30px;margin-bottom:8px}.card-title{font-size:14px;color:#666;margin-bottom:8px}.card-value{font-size:24px;font-weight:bold}.chart-container{margin-top:20px}.chart-row{margin-bottom:15px}.chart-label{display:flex;justify-content:space-between;margin-bottom:5px;font-size:14px}.chart-bar-background{width:100%;height:22px;background:#eeeeee;border-radius:10px;overflow:hidden}.chart-bar{height:100%;background:#5b5bd6;border-radius:10px;transition:width .5s ease}.prediction-card{background:#f7f7f7;padding:20px;border-radius:12px;margin-top:20px;border:1px solid #e5e5e5}.prediction-item{background:white;padding:14px;margin-top:10px;border-radius:8px}.prediction-recommendation{margin-top:20px;padding:18px;border-radius:10px;background:#fff7d6;font-weight:bold;text-align:center}.prediction-safe{background:#e8f7e8}.prediction-danger{background:#ffe5e5}@media(max-width:600px){.dashboard-grid{grid-template-columns:1fr}}
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <!-- ================================= -->
+    <!-- HEADER -->
+    <!-- ================================= -->
+
+    <h1>💰 ARA</h1>
+
+    <p class="subtitle">
+        Your Personal Accountant
+    </p>
+
+
+    <!-- ================================= -->
+    <!-- ADD EXPENSE -->
+    <!-- ================================= -->
+
+    <h2>➕ Add Expense</h2>
+
+    <form id="expenseForm">
+
+        <label for="amount">
+            Amount (₹)
+        </label>
+
+        <input
+            type="number"
+            id="amount"
+            placeholder="Enter amount"
+            min="1"
+            step="0.01"
+            required
+        >
+
+
+        <label for="category">
+            Category
+        </label>
+
+        <select id="category">
+
+            <option value="Other">
+                Other
+            </option>
+
+            <option value="Food">
+                Food
+            </option>
+
+            <option value="Travel">
+                Travel
+            </option>
+
+            <option value="Education">
+                Education
+            </option>
+
+            <option value="Shopping">
+                Shopping
+            </option>
+
+            <option value="Entertainment">
+                Entertainment
+            </option>
+
+            <option value="Health">
+                Health
+            </option>
+
+        </select>
+
+
+        <label for="description">
+            Description
+        </label>
+
+        <input
+            type="text"
+            id="description"
+            placeholder="Example: Had biryani for lunch"
+        >
+
+
+        <button
+            type="button"
+            class="suggest-button"
+            onclick="suggestCategory()"
+        >
+            🤖 Suggest Category
+        </button>
+
+
+        <p id="categorySuggestion">
+        </p>
+
+
+        <button type="submit">
+            ➕ Add Expense
+        </button>
+
+    </form>
+
+
+    <p id="message"></p>
+
+
+    <!-- ================================= -->
+    <!-- SPENDING SUMMARY -->
+    <!-- ================================= -->
+
+    <hr>
+
+    <h2>📊 Spending Summary</h2>
+
+    <div class="dashboard-grid">
+        <div class="dashboard-card"><div class="card-icon">💰</div><div class="card-title">Monthly Budget</div><div class="card-value">₹<span id="dashBudget">0.00</span></div></div>
+        <div class="dashboard-card"><div class="card-icon">💸</div><div class="card-title">Spent This Month</div><div class="card-value">₹<span id="dashSpent">0.00</span></div></div>
+        <div class="dashboard-card"><div class="card-icon">💵</div><div class="card-title">Remaining</div><div class="card-value">₹<span id="dashRemaining">0.00</span></div></div>
+        <div class="dashboard-card"><div class="card-icon">📅</div><div class="card-title">Daily Limit</div><div class="card-value">₹<span id="dashDaily">0.00</span></div></div>
+    </div>
+
+    <div class="total-box">
+
+        Total Spent:
+
+        ₹<span id="total">
+            0.00
+        </span>
+
+    </div>
+
+
+    <!-- ================================= -->
+    <!-- RECENT EXPENSES -->
+    <!-- ================================= -->
+
+    <h2>🧾 Recent Expenses</h2>
+
+    <div id="expenseList">
+
+        <p class="empty">
+            No expenses yet.
+        </p>
+
+    </div>
+
+
+    <!-- ================================= -->
+    <!-- MONTHLY BUDGET -->
+    <!-- ================================= -->
+
+    <hr>
+
+    <h2>🎯 Monthly Budget</h2>
+
+    <form id="budgetForm">
+
+        <label for="budget">
+
+            Set Monthly Budget (₹)
+
+        </label>
+
+        <input
+            type="number"
+            id="budget"
+            placeholder="Example: 10000"
+            min="1"
+            step="0.01"
+            required
+        >
+
+        <button type="submit">
+
+            🎯 Set Budget
+
+        </button>
+
+        <button
+            type="button"
+            onclick="resetBudget()"
+            style="
+                margin-top: 10px;
+                background: #555;
+            "
+        >
+            🔄 Reset Budget
+        </button>
+
+    </form>
+
+
+    <p id="budgetMessage"></p>
+
+
+    <div class="budget-card">
+
+        <p>
+
+            <strong>
+                💰 Monthly Budget:
+            </strong>
+
+            ₹<span id="budgetAmount">
+                0.00
+            </span>
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                💸 Spent This Month:
+            </strong>
+
+            ₹<span id="budgetSpent">
+                0.00
+            </span>
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                💵 Remaining:
+            </strong>
+
+            ₹<span id="budgetRemaining">
+                0.00
+            </span>
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                📊 Budget Used:
+            </strong>
+
+            <span id="budgetPercentage">
+                0
+            </span>%
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                📅 Days Remaining:
+            </strong>
+
+            <span id="daysRemaining">
+                0
+            </span>
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                💳 Recommended Daily Limit:
+            </strong>
+
+            ₹<span id="dailyLimit">
+                0.00
+            </span>
+
+        </p>
+
+    </div>
+
+
+    <!-- ================================= -->
+    <!-- CAN I AFFORD IT -->
+    <!-- ================================= -->
+
+    <hr>
+
+    <h2>💭 Can I Afford It?</h2>
+
+    <p>
+
+        Enter an amount and ARA will analyze
+        your current budget and give you a
+        spending recommendation.
+
+    </p>
+
+
+    <div class="afford-box">
+
+        <form id="affordForm">
+
+            <label for="affordAmount">
+
+                How much do you want to spend? (₹)
+
+            </label>
+
+
+            <input
+                type="number"
+                id="affordAmount"
+                placeholder="Example: 500"
+                min="1"
+                step="0.01"
+                required
+            >
+
+
+            <button type="submit">
+
+                🔍 Check With ARA
+
+            </button>
+
+        </form>
+
+
+        <div id="affordResult">
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================= -->
+    <!-- SPENDING ANALYSIS -->
+    <!-- ================================= -->
+
+    <hr>
+
+    <h2>🤖 Spending Analysis</h2>
+
+
+    <div id="analysis">
+
+        <p class="empty">
+
+            Analyzing your spending...
+
+        </p>
+
+    </div>
+
+
+    <hr>
+
+    <h2>🔮 ARA Spending Prediction</h2>
+
+    <div class="prediction-card">
+        <p>ARA predicts your expected monthly spending based on your current spending pattern.</p>
+        <div class="prediction-item"><strong>💸 Spent So Far:</strong> ₹<span id="predictionSpent">0.00</span></div>
+        <div class="prediction-item"><strong>📊 Average Daily Spending:</strong> ₹<span id="predictionAverage">0.00</span></div>
+        <div class="prediction-item"><strong>📅 Days Remaining:</strong> <span id="predictionDays">0</span></div>
+        <div class="prediction-item"><strong>🔮 Predicted Monthly Spending:</strong> ₹<span id="predictionTotal">0.00</span></div>
+        <div class="prediction-item"><strong>🎯 Monthly Budget:</strong> ₹<span id="predictionBudget">0.00</span></div>
+        <div id="predictionRecommendation" class="prediction-recommendation">🤖 Analyzing your spending...</div>
+    </div>
+
+</div>
+
+
+
+<script>
+// ========================================
+// ARA OFFLINE MODE
+// ========================================
+// Data is stored on this device using localStorage.
+
+const EXPENSE_KEY = "ara_expenses_v1";
+const BUDGET_KEY = "ara_budget_v1";
+
+function getExpenses() {
+    return JSON.parse(localStorage.getItem(EXPENSE_KEY) || "[]");
+}
+
+function saveExpenses(expenses) {
+    localStorage.setItem(EXPENSE_KEY, JSON.stringify(expenses));
+}
+
+function getBudget() {
+    return Number(localStorage.getItem(BUDGET_KEY) || 0);
+}
+
+function saveBudget(value) {
+    localStorage.setItem(BUDGET_KEY, String(value));
+}
+
+function money(value) {
+    return Number(value || 0).toFixed(2);
+}
+
+function escapeHtml(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function currentMonthExpenses() {
+    const now = new Date();
+    return getExpenses().filter(expense => {
+        const d = new Date(expense.date);
+        return d.getMonth() === now.getMonth() &&
+               d.getFullYear() === now.getFullYear();
+    });
+}
+
+function monthInfo() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysPassed = now.getDate();
+    return {
+        daysInMonth,
+        daysPassed,
+        daysRemaining: Math.max(daysInMonth - daysPassed, 0)
+    };
+}
+
+// ========================================
+// CATEGORY SUGGESTION
+// ========================================
+
+function suggestCategory() {
+    const description = document.getElementById("description").value.trim();
+    const suggestion = document.getElementById("categorySuggestion");
+
+    if (!description) {
+        suggestion.innerText = "⚠️ Please enter a description first.";
+        return;
+    }
+
+    const text = description.toLowerCase();
+    const keywords = {
+        Food: ["food", "lunch", "dinner", "breakfast", "biryani", "rice", "dosa", "idli", "parotta", "pizza", "burger", "coffee", "tea", "snack", "restaurant", "canteen", "swiggy", "zomato"],
+        Travel: ["bus", "train", "metro", "auto", "uber", "ola", "travel", "petrol", "fuel", "ticket"],
+        Education: ["book", "course", "college", "class", "exam", "study", "notebook", "stationery", "fees", "education"],
+        Shopping: ["shirt", "dress", "clothes", "shopping", "amazon", "flipkart", "shoe", "bag", "purchase"],
+        Entertainment: ["movie", "cinema", "game", "netflix", "spotify", "concert", "entertainment"],
+        Health: ["medicine", "doctor", "hospital", "health", "tablet", "pharmacy", "medical"]
+    };
+
+    let bestCategory = "Other";
+    let bestScore = 0;
+
+    for (const [category, words] of Object.entries(keywords)) {
+        let score = 0;
+        words.forEach(word => {
+            if (text.includes(word)) score++;
+        });
+        if (score > bestScore) {
+            bestScore = score;
+            bestCategory = category;
+        }
+    }
+
+    const confidence = bestScore > 0 ? 100 : 0;
+    document.getElementById("category").value = bestCategory;
+    suggestion.innerText = `🤖 ARA suggests: ${bestCategory} (${confidence}% confidence)`;
+}
+
+// ========================================
+// ADD EXPENSE
+// ========================================
+
+document.getElementById("expenseForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const amount = Number(document.getElementById("amount").value);
+    const category = document.getElementById("category").value || "Other";
+    const description = document.getElementById("description").value.trim();
+
+    if (!amount || amount <= 0) {
+        document.getElementById("message").innerText = "❌ Enter a valid amount.";
+        return;
+    }
+
+    const expenses = getExpenses();
+    expenses.push({
+        id: Date.now(),
+        amount,
+        category,
+        description,
+        date: new Date().toISOString()
+    });
+
+    saveExpenses(expenses);
+
+    document.getElementById("expenseForm").reset();
+    document.getElementById("category").value = "Other";
+    document.getElementById("categorySuggestion").innerText = "";
+    document.getElementById("message").innerText = "✅ Expense added successfully!";
+
+    refreshAll();
+});
+
+// ========================================
+// LOAD EXPENSES
+// ========================================
+
+function loadExpenses() {
+    const expenses = getExpenses().sort((a, b) => new Date(b.date) - new Date(a.date));
+    const expenseList = document.getElementById("expenseList");
+    const totalElement = document.getElementById("total");
+
+    if (expenses.length === 0) {
+        expenseList.innerHTML = '<p class="empty">No expenses yet.</p>';
+        totalElement.innerText = "0.00";
+        return;
+    }
+
+    let total = 0;
+    expenseList.innerHTML = "";
+
+    expenses.forEach(expense => {
+        total += Number(expense.amount);
+        const item = document.createElement("div");
+        item.className = "expense-item";
+        item.innerHTML = `
+            <div class="expense-amount">₹${money(expense.amount)}</div>
+            <div><strong>Category:</strong> ${escapeHtml(expense.category)}</div>
+            <div><strong>Description:</strong> ${escapeHtml(expense.description || "No description")}</div>
+            <small>${new Date(expense.date).toLocaleString()}</small>
+            <div style="margin-top:12px;display:flex;gap:10px;">
+                <button type="button" onclick="editExpense(${expense.id})" style="padding:8px 14px;cursor:pointer;">✏️ Edit</button>
+                <button type="button" onclick="deleteExpense(${expense.id})" style="padding:8px 14px;cursor:pointer;">🗑️ Delete</button>
+            </div>
+        `;
+        expenseList.appendChild(item);
+    });
+
+    totalElement.innerText = money(total);
+}
+
+// ========================================
+// EDIT EXPENSE
+// ========================================
+
+function editExpense(id) {
+    const expenses = getExpenses();
+    const expense = expenses.find(item => Number(item.id) === Number(id));
+
+    if (!expense) {
+        alert("Expense not found.");
+        return;
+    }
+
+    const newAmount = prompt("Enter new amount (₹):", expense.amount);
+    if (newAmount === null) return;
+
+    const amount = Number(newAmount);
+    if (!amount || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+    }
+
+    const newDescription = prompt("Enter new description:", expense.description || "");
+    if (newDescription === null) return;
+
+    const newCategory = prompt(
+        "Enter category (Food, Travel, Education, Shopping, Entertainment, Health, Other):",
+        expense.category
+    );
+    if (newCategory === null) return;
+
+    const allowed = ["Food", "Travel", "Education", "Shopping", "Entertainment", "Health", "Other"];
+    const category = allowed.find(c => c.toLowerCase() === newCategory.trim().toLowerCase());
+
+    if (!category) {
+        alert("Invalid category.");
+        return;
+    }
+
+    expense.amount = amount;
+    expense.description = newDescription;
+    expense.category = category;
+    saveExpenses(expenses);
+
+    alert("Expense updated successfully! ✏️");
+    refreshAll();
+}
+
+// ========================================
+// DELETE EXPENSE
+// ========================================
+
+function deleteExpense(id) {
+    if (!confirm("Are you sure you want to delete this expense?")) return;
+
+    const expenses = getExpenses().filter(item => Number(item.id) !== Number(id));
+    saveExpenses(expenses);
+
+    alert("Expense deleted successfully! 🗑️");
+    refreshAll();
+}
+
+// ========================================
+// LOAD SPENDING ANALYSIS
+// ========================================
+
+function loadAnalysis() {
+    const expenses = getExpenses();
+    const analysis = document.getElementById("analysis");
+
+    if (expenses.length === 0) {
+        analysis.innerHTML = '<p class="empty">Add expenses to get spending insights.</p>';
+        return;
+    }
+
+    const totals = {};
+    let total = 0;
+
+    expenses.forEach(expense => {
+        const amount = Number(expense.amount);
+        total += amount;
+        totals[expense.category] = (totals[expense.category] || 0) + amount;
+    });
+
+    const categories = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+    let html = `<div class="total-box">Total Spending: ₹${money(total)}</div><h3>Category Breakdown</h3>`;
+
+    categories.forEach(([name, amount]) => {
+        const percentage = total ? (amount / total) * 100 : 0;
+        html += `
+            <div class="category-item">
+                <strong>${escapeHtml(name)}</strong>: ₹${money(amount)}
+                <br><small>${percentage.toFixed(1)}%</small>
+                <div class="chart-bar"><div class="chart-fill" style="width:${percentage}%;"></div></div>
+            </div>
+        `;
+    });
+
+    const top = categories[0];
+    if (top) {
+        html += `<div class="recommendation"><strong>💡 ARA Recommendation:</strong> Your highest spending category is ${escapeHtml(top[0])}. Review this category if you want to reduce spending.</div>`;
+    }
+
+    analysis.innerHTML = html;
+}
+
+// ========================================
+// MONTHLY BUDGET
+// ========================================
+
+document.getElementById("budgetForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const amount = Number(document.getElementById("budget").value);
+    if (!amount || amount <= 0) {
+        document.getElementById("budgetMessage").innerText = "❌ Enter a valid budget.";
+        return;
+    }
+
+    saveBudget(amount);
+    document.getElementById("budgetMessage").innerText = "✅ Monthly budget saved!";
+    loadBudget();
+    loadPrediction();
+});
+
+function loadBudget() {
+    const budget = getBudget();
+    const spent = currentMonthExpenses().reduce((sum, e) => sum + Number(e.amount), 0);
+    const remaining = Math.max(budget - spent, 0);
+    const info = monthInfo();
+    const daily = info.daysRemaining > 0 ? remaining / info.daysRemaining : 0;
+    const percentage = budget > 0 ? (spent / budget) * 100 : 0;
+
+    document.getElementById("budgetAmount").innerText = money(budget);
+    document.getElementById("budgetSpent").innerText = money(spent);
+    document.getElementById("budgetRemaining").innerText = money(remaining);
+    document.getElementById("budgetPercentage").innerText = percentage.toFixed(1);
+    document.getElementById("daysRemaining").innerText = info.daysRemaining;
+    document.getElementById("dailyLimit").innerText = money(daily);
+
+    document.getElementById("dashBudget").innerText = money(budget);
+    document.getElementById("dashSpent").innerText = money(spent);
+    document.getElementById("dashRemaining").innerText = money(remaining);
+    document.getElementById("dashDaily").innerText = money(daily);
+}
+
+// ========================================
+// CAN I AFFORD IT?
+// ========================================
+
+document.getElementById("affordForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const amount = Number(document.getElementById("affordAmount").value);
+    const resultBox = document.getElementById("affordResult");
+
+    if (!amount || amount <= 0) {
+        resultBox.innerHTML = '<div class="afford-result danger">❌ Please enter a valid amount.</div>';
+        return;
+    }
+
+    const budget = getBudget();
+    const spent = currentMonthExpenses().reduce((sum, e) => sum + Number(e.amount), 0);
+    const remaining = budget - spent;
+    const info = monthInfo();
+    const daily = info.daysRemaining > 0 ? Math.max(remaining, 0) / info.daysRemaining : 0;
+
+    if (budget <= 0) {
+        resultBox.innerHTML = '<div class="afford-result danger">⚠️ Set a monthly budget first.</div>';
+        return;
+    }
+
+    let status = "safe";
+    let icon = "🟢";
+    let message = "This expense is within your recommended daily spending.";
+
+    if (amount > remaining) {
+        status = "danger";
+        icon = "🔴";
+        message = "This expense is higher than your remaining monthly budget.";
+    } else if (amount > daily) {
+        status = "warning";
+        icon = "🟡";
+        message = "You can afford it within the monthly budget, but it is above today's recommended limit.";
+    }
+
+    resultBox.innerHTML = `
+        <div class="afford-result ${status}">
+            <div style="font-size:32px;margin-bottom:10px;">${icon}</div>
+            <div>${message}</div><br>
+            <small>
+                Remaining budget: ₹${money(remaining)}<br><br>
+                Days remaining: ${info.daysRemaining}<br><br>
+                Recommended daily spending: ₹${money(daily)}
+            </small>
+        </div>
+    `;
+});
+
+// ========================================
+// SPENDING PREDICTION
+// ========================================
+
+function loadPrediction() {
+    const budget = getBudget();
+    const monthExpenses = currentMonthExpenses();
+    const spent = monthExpenses.reduce((sum, e) => sum + Number(e.amount), 0);
+    const info = monthInfo();
+    const averageDaily = info.daysPassed > 0 ? spent / info.daysPassed : 0;
+    const predicted = averageDaily * info.daysInMonth;
+    const difference = predicted - budget;
+
+    document.getElementById("predictionSpent").innerText = money(spent);
+    document.getElementById("predictionAverage").innerText = money(averageDaily);
+    document.getElementById("predictionDays").innerText = info.daysRemaining;
+    document.getElementById("predictionTotal").innerText = money(predicted);
+    document.getElementById("predictionBudget").innerText = money(budget);
+
+    const recommendation = document.getElementById("predictionRecommendation");
+    recommendation.classList.remove("prediction-safe", "prediction-danger");
+
+    if (budget <= 0) {
+        recommendation.innerText = "🤖 Set a monthly budget to get personalized spending predictions.";
+    } else if (predicted > budget) {
+        recommendation.innerText = `🤖 Your predicted spending is ₹${money(predicted)}, which may exceed your budget by ₹${money(difference)}.`;
+        recommendation.classList.add("prediction-danger");
+    } else {
+        recommendation.innerText = `🤖 Your predicted spending is ₹${money(predicted)}. You are currently within your budget.`;
+        recommendation.classList.add("prediction-safe");
+    }
+}
+
+// ========================================
+// RESET MONTHLY BUDGET
+// ========================================
+
+function resetBudget() {
+    if (!confirm("Are you sure you want to reset your monthly budget? Your expenses will NOT be deleted.")) return;
+
+    localStorage.removeItem(BUDGET_KEY);
+    document.getElementById("budget").value = "";
+    document.getElementById("budgetMessage").innerText = "🔄 Monthly budget has been reset.";
+    loadBudget();
+    loadPrediction();
+}
+
+// ========================================
+// REFRESH EVERYTHING
+// ========================================
+
+function refreshAll() {
+    loadExpenses();
+    loadAnalysis();
+    loadBudget();
+    loadPrediction();
+}
+
+// ========================================
+// SERVICE WORKER
+// ========================================
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("service-worker.js")
+            .then(() => console.log("ARA Service Worker registered successfully."))
+            .catch(error => console.log("Service Worker registration unavailable in this environment:", error));
+    });
+}
+
+// Initial load
+refreshAll();
+</script>
+
+</body>
+
+</html>
